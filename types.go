@@ -19,5 +19,6 @@ package main
 // support of Go reflection.
 
 type Settings struct {
-	DeniedNames []string `json:"denied_names"`
+	ExcludedNamespaces []string            `json:"excluded_namespaces"`
+	ExcludedPodLabels  map[string]string `json:"excluded_pod_labels"`
 }

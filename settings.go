@@ -15,9 +15,31 @@ func (s *Settings) Valid() (bool, error) {
 	return true, nil
 }
 
-func (s *Settings) IsNameDenied(name string) bool {
-	for _, deniedName := range s.DeniedNames {
-		if deniedName == name {
+func (s *Settings) IsNamespaceIstioDisabled(name string, annotations map[string]string) bool {
+	for _, excludedNamespace := range s.ExcludedNamespaces {
+		if excludedNamespace == name {
+			return false
+		}
+	}
+
+	for k, v := range annotations {
+		if k == "istio-injection" && v == "true" {
+			return false
+		}
+	}
+
+	return true
+}
+
+func (s *Settings) IsPodIstioDisabled(labels map[string]string, annotations map[string]string) bool {
+	for labelKey, labelValue := range s.ExcludedPodLabels {
+		if labels[labelKey] == labelValue {
+			return false
+		}
+	}
+
+	for k, v := range annotations {
+		if k == "sidecar.istio.io/inject" && v == "true" {
 			return true
 		}
 	}

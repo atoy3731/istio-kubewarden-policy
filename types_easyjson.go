@@ -36,28 +36,44 @@ func easyjson6601e8cdDecodeTmpEasyjson(in *jlexer.Lexer, out *Settings) {
 			continue
 		}
 		switch key {
-		case "denied_names":
+		case "excluded_namespaces":
 			if in.IsNull() {
 				in.Skip()
-				out.DeniedNames = nil
+				out.ExcludedNamespaces = nil
 			} else {
 				in.Delim('[')
-				if out.DeniedNames == nil {
+				if out.ExcludedNamespaces == nil {
 					if !in.IsDelim(']') {
-						out.DeniedNames = make([]string, 0, 4)
+						out.ExcludedNamespaces = make([]string, 0, 4)
 					} else {
-						out.DeniedNames = []string{}
+						out.ExcludedNamespaces = []string{}
 					}
 				} else {
-					out.DeniedNames = (out.DeniedNames)[:0]
+					out.ExcludedNamespaces = (out.ExcludedNamespaces)[:0]
 				}
 				for !in.IsDelim(']') {
 					var v1 string
 					v1 = string(in.String())
-					out.DeniedNames = append(out.DeniedNames, v1)
+					out.ExcludedNamespaces = append(out.ExcludedNamespaces, v1)
 					in.WantComma()
 				}
 				in.Delim(']')
+			}
+		case "excluded_pod_labels":
+			if in.IsNull() {
+				in.Skip()
+			} else {
+				in.Delim('{')
+				out.ExcludedPodLabels = make(map[string]string)
+				for !in.IsDelim('}') {
+					key := string(in.String())
+					in.WantColon()
+					var v2 string
+					v2 = string(in.String())
+					(out.ExcludedPodLabels)[key] = v2
+					in.WantComma()
+				}
+				in.Delim('}')
 			}
 		default:
 			in.SkipRecursive()
@@ -74,19 +90,40 @@ func easyjson6601e8cdEncodeTmpEasyjson(out *jwriter.Writer, in Settings) {
 	first := true
 	_ = first
 	{
-		const prefix string = ",\"denied_names\":"
+		const prefix string = ",\"excluded_namespaces\":"
 		out.RawString(prefix[1:])
-		if in.DeniedNames == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+		if in.ExcludedNamespaces == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v2, v3 := range in.DeniedNames {
-				if v2 > 0 {
+			for v3, v4 := range in.ExcludedNamespaces {
+				if v3 > 0 {
 					out.RawByte(',')
 				}
-				out.String(string(v3))
+				out.String(string(v4))
 			}
 			out.RawByte(']')
+		}
+	}
+	{
+		const prefix string = ",\"excluded_pod_labels\":"
+		out.RawString(prefix)
+		if in.ExcludedPodLabels == nil && (out.Flags&jwriter.NilMapAsEmpty) == 0 {
+			out.RawString(`null`)
+		} else {
+			out.RawByte('{')
+			v5First := true
+			for v5Name, v5Value := range in.ExcludedPodLabels {
+				if v5First {
+					v5First = false
+				} else {
+					out.RawByte(',')
+				}
+				out.String(string(v5Name))
+				out.RawByte(':')
+				out.String(string(v5Value))
+			}
+			out.RawByte('}')
 		}
 	}
 	out.RawByte('}')
