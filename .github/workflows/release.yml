@@ -4,12 +4,6 @@ on:
     - main
     tags:
     - 'v*'
-  workflow_dispatch:
-    inputs:
-      tinygo-version:
-        description: "tinygo-version"
-        required: true
-        default: 0.20.0
 
 name: Release policy
 
@@ -31,5 +25,6 @@ jobs:
     uses: kubewarden/github-actions/.github/workflows/reusable-release-policy-go.yml@v1
     with:
       oci-target: ghcr.io/atoy3731/kubewarden-policies/istio
+      tinygo-version: 0.20.0
     secrets:
       workflow-pat: ${{ secrets.WORKFLOW_PAT }}
