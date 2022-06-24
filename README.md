@@ -2,25 +2,17 @@
 
 [![Release policy](https://github.com/atoy3731/kubewarden-istio-policy/actions/workflows/release.yml/badge.svg)](https://github.com/atoy3731/kubewarden-istio-policy/actions/workflows/release.yml)
 
-This is a template repository that can be used to quickly scaffold a
-Kubewarden policy written with Go language.
-
-Don't forget to checkout Kubewarden's [official documentation](https://docs.kubewarden.io)
-for more information about writing policies.
-
 ## Introduction
 
-This repository contains a working policy written in Go.
+This repository contains the source for a Kubewarden policy to enforce Istio injection across your Kubernetes cluster.
 
-The policy looks at the `name` of a Kubernetes Pod and rejects the request
-if the name is on a deny list.
-
-The deny list is configurable by the user via the runtime settings of the policy.
-The configuration of the policy is expressed via this structure:
-
+It comes with the ability to exclude both namespaces and pods (by label) for flexibility. Optional settings are:
 ```json
 {
-  "denied_names": [ "badname1", "badname2" ]
+  "excluded_namespaces": [ "istio-system", "kubewarden" ],
+  "excluded_pod_labels" {
+    "istioException": "enabled"
+  }
 }
 ```
 
