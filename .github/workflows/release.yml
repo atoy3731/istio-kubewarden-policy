@@ -9,7 +9,7 @@ name: Release policy
 
 jobs:
   test:
-    name: run tests and linters
+    name: run tests and linterss
     uses: atoy3731/github-actions/.github/workflows/reusable-test-policy-go.yml@v1
 
   release:
