@@ -15,6 +15,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v1
+
       -
         name: Install dependencies
         uses: ./actions/policy-gh-action-dependencies
