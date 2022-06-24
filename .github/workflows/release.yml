@@ -4,11 +4,16 @@ on:
     - main
     tags:
     - 'v*'
+  workflow_dispatch:
+    inputs:
+      tinygo-version:
+        description: "tinygo-version"
+        required: true
+        default: 0.18.0
 
 name: Release policy
 
 jobs:
-
   test:
     name: run tests and linters
     uses: kubewarden/github-actions/.github/workflows/reusable-test-policy-go.yml@v1
