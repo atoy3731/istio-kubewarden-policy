@@ -9,7 +9,7 @@ on:
       tinygo-version:
         description: "tinygo-version"
         required: true
-        default: 0.18.0
+        default: 0.20.0
 
 name: Release policy
 
