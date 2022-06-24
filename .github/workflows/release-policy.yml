@@ -27,7 +27,7 @@ jobs:
           make e2e-tests
       -
         name: Release
-        uses: action/policy-release@main
+        uses: actions/policy-release@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           oci-target: ${{ inputs.oci-target }}
