@@ -10,7 +10,7 @@ name: Release policy
 jobs:
   test:
     name: run tests and linterss
-    uses: actions/test-policy.yml@main
+    uses: .github/workflows/test-policy.yml@main
 
   release:
     needs: test
@@ -22,7 +22,7 @@ jobs:
       # Required by cosign keyless signing
       id-token: write
 
-    uses: actions/release-policy.yml@main
+    uses: .github/workflows/release-policy.yml@main
     with:
       oci-target: ghcr.io/atoy3731/kubewarden-policies/istio
     secrets:
