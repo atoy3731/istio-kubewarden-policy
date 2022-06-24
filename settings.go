@@ -23,7 +23,7 @@ func (s *Settings) IsNamespaceIstioDisabled(name string, annotations map[string]
 	}
 
 	for k, v := range annotations {
-		if k == "istio-injection" && v == "true" {
+		if k == "istio-injection" && v == "enabled" {
 			return false
 		}
 	}

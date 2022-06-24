@@ -1,4 +1,6 @@
-# go-policy-template
+# kubewarden-istio-policy
+
+[![Release policy](https://github.com/atoy3731/kubewarden-istio-policy/actions/workflows/release.yml/badge.svg)](https://github.com/atoy3731/kubewarden-istio-policy/actions/workflows/release.yml)
 
 This is a template repository that can be used to quickly scaffold a
 Kubewarden policy written with Go language.
