@@ -51,6 +51,14 @@
             }
       },
       "options": {"apiVersion":"meta.k8s.io/v1","kind":"UpdateOptions"},
-      "dryRun": false
+      "dryRun": false,
+      "userInfo": {
+            "username": "admin",
+            "uid": "014fbff9a07c",
+            "groups": ["system:authenticated","my-admin-group"],
+            "extra": {
+              "some-key":["some-value1", "some-value2"]
+            }
+      }
 }
   
